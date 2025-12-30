@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AartiNow - Book Aarti Services</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Slider */
+        .slider {
+            position: relative;
+            height: 400px;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide1 {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><rect fill="%23ff9933" width="800" height="400"/><circle cx="400" cy="200" r="80" fill="%23fff" opacity="0.3"/><text x="400" y="220" font-size="60" fill="white" text-anchor="middle" font-family="Arial">🪔</text></svg>');
+        }
+
+        .slide2 {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><rect fill="%23f7931e" width="800" height="400"/><circle cx="400" cy="200" r="100" fill="%23ffe" opacity="0.2"/><text x="400" y="220" font-size="50" fill="white" text-anchor="middle" font-family="Arial">✨ Sacred Rituals ✨</text></svg>');
+        }
+
+        .slide3 {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400"><rect fill="%23ff6b35" width="800" height="400"/><path d="M0,200 Q200,150 400,200 T800,200" fill="none" stroke="white" stroke-width="3" opacity="0.3"/><text x="400" y="220" font-size="50" fill="white" text-anchor="middle" font-family="Arial">Divine Blessings</text></svg>');
+        }
+
+        .slider-content {
+            position: absolute;
+            top: 80%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+
+        .slider-content h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .slider-content p {
+            font-size: 1.5rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1rem;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #ff6b35;
+            text-align: center;
+        }
+
+        /* About */
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        /* Services */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card h3 {
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .book-btn {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 1rem;
+            transition: opacity 0.3s;
+        }
+
+        .book-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Events */
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .event1 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23ffa500" width="300" height="200"/><text x="150" y="110" font-size="40" fill="white" text-anchor="middle">🪔🌊</text></svg>'); }
+        .event2 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23ff69b4" width="300" height="200"/><text x="150" y="110" font-size="40" fill="white" text-anchor="middle">💑💍</text></svg>'); }
+        .event3 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23ff4500" width="300" height="200"/><text x="150" y="110" font-size="40" fill="white" text-anchor="middle">🎉🪔</text></svg>'); }
+        .event4 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23daa520" width="300" height="200"/><text x="150" y="110" font-size="40" fill="white" text-anchor="middle">🏠🙏</text></svg>'); }
+        .event5 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 200"><rect fill="%23ff6347" width="300" height="200"/><text x="150" y="110" font-size="40" fill="white" text-anchor="middle">🎊✨</text></svg>'); }
+
+        .event-content {
+            padding: 1.5rem;
+        }
+
+        .event-content h3 {
+            color: #ff6b35;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact */
+        .contact-box {
+            background: linear-gradient(135deg, #ff6b35, #f7931e);
+            color: white;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: transform 0.3s;
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 3rem 1rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #ff6b35;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ff6b35;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #555;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: linear-gradient(135deg, #ff6b35, #f7931e);
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1rem;
+                display: none;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .slider-content h1 {
+                font-size: 2rem;
+            }
+
+            .slider-content p {
+                font-size: 1rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">AartiNow</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="menu-toggle" id="menuToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Slider -->
+    <div class="slider" id="home">
+        <div class="slide slide1 active"></div>
+        <div class="slide slide2"></div>
+        <div class="slide slide3"></div>
+        <div class="slider-content">
+        <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            <!--<h1>Welcome to AartiNow</h1> 
+            <p>Book Sacred Aarti Services with Ease</p> -->
+        </div>
+    </div>
+
+    <!-- About -->
+    <section id="about">
+        <h2>About Us</h2>
+        <div class="about-content">
+            <p>AartiNow is your trusted platform for booking authentic and divine aarti services across India. We bring centuries-old spiritual traditions to your doorstep with professional pandits and priests who perform sacred rituals with utmost devotion and authenticity. Whether it's the serene Ganga Aarti, auspicious wedding ceremonies, or special puja services, we ensure every ritual is conducted with traditional precision and spiritual sanctity. Our mission is to make divine blessings accessible to everyone, connecting you with experienced spiritual practitioners who understand the depth and significance of each ritual. With AartiNow, experience the divine presence in your homes, events, and celebrations, creating moments of spiritual connection that last a lifetime. We pride ourselves on punctuality, authenticity, and the sacred energy we bring to every service.</p>
+        </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🌊</div>
+                <h3>Ganga Aarti</h3>
+                <p>Experience the divine Ganga Aarti ceremony with traditional rituals and mantras</p>
+                <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💑</div>
+                <h3>Wedding Aarti</h3>
+                <p>Sacred wedding ceremonies performed with authentic Vedic rituals</p>
+                <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🪔</div>
+                <h3>Professional Aarti</h3>
+                <p>Corporate and professional event aarti services for auspicious beginnings</p>
+                <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🏠</div>
+                <h3>Home Puja</h3>
+                <p>Bring divine blessings to your home with personalized puja services</p>
+                <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎊</div>
+                <h3>Festival Aarti</h3>
+                <p>Special aarti services for all Hindu festivals and celebrations</p>
+                <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🙏</div>
+                <h3>Custom Rituals</h3>
+                <p>Personalized spiritual services tailored to your specific needs</p>
+                <button class="book-btn" onclick="scrollToContact()">Book Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events -->
+    <section id="events">
+        <h2>Recent Events</h2>
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-image event1"></div>
+                <div class="event-content">
+                    <h3>Ganga Aarti at Varanasi</h3>
+                    <p>A mesmerizing evening aarti ceremony performed at the sacred ghats of Varanasi with hundreds of devotees</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image event2"></div>
+                <div class="event-content">
+                    <h3>Grand Wedding Ceremony</h3>
+                    <p>Beautiful wedding rituals performed with traditional customs and blessings for the couple's new journey</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image event3"></div>
+                <div class="event-content">
+                    <h3>Diwali Celebration</h3>
+                    <p>Special Lakshmi puja and aarti conducted for the festival of lights with elaborate decorations</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image event4"></div>
+                <div class="event-content">
+                    <h3>Griha Pravesh Puja</h3>
+                    <p>Auspicious housewarming ceremony with Vastu puja and blessings for the new home</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image event5"></div>
+                <div class="event-content">
+                    <h3>Corporate Office Inauguration</h3>
+                    <p>Professional aarti service for a new business venture, bringing prosperity and success</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="contact-box">
+            <h3>Book Your Aarti Service Now</h3>
+            <p>Connect with us on WhatsApp to book your preferred aarti service</p>
+            <button class="whatsapp-btn" onclick="openWhatsApp()">
+                WhatsApp Us
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>AartiNow</h3>
+                <p>Bringing divine blessings to your doorstep with authentic spiritual services</p>
+            </div>
+            <div class="footer-section">
+                <h3>Address</h3>
+                <p>📍 Assi Ghat<br>
+                Varanasi, Uttar Pradesh<br>
+                India - 221005<br>
+                Phone: +91 96214 04915</p>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                   <a href="#" title="Facebook">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="Instagram">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                        </svg>
+                    </a>
+                    <a href="#" title="YouTube">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 AartiNow. All rights reserved. | Made with devotion 🙏</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navLinks = document.getElementById('navLinks');
+
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        // Close menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Slider functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+
+        function showSlide(n) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            currentSlide = (n + slides.length) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        setInterval(nextSlide, 4000);
+
+        // Smooth scroll to contact section
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // WhatsApp integration
+        function openWhatsApp() {
+            const phoneNumber = '919621404915'; // Replace with your WhatsApp number
+            const message = encodeURIComponent('Hi! I would like to book an aarti service through AartiNow.');
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
