@@ -108,15 +108,18 @@
         }
 
 
-        .slide {
+      .slide {
           position: absolute;
           inset: 0;
           opacity: 0;
           transition: opacity 1s ease-in-out;
-          background-repeat: no-repeat, no-repeat;
-          background-position: center, center;
-          background-size: cover, cover;
+        
+          /* background handling */
+          background-repeat: no-repeat;
+          background-position: center top;   /* 👈 show top part instead of center */
+          background-size: cover;
         }
+
 
         .slide.active {
           opacity: 1;
