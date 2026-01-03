@@ -235,29 +235,41 @@
 
         /* Events */
         .events-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 2rem;
+          margin-top: 2rem;
         }
-
+        
         .event-card {
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+          overflow: hidden;
         }
-
-       .event-image {
+        
+        /* ✅ Background-image container */
+        .event-image {
           width: 100%;
-          height: auto;           /* image controls height */
-          display: block;
-          object-fit: contain;    /* no crop */
+          aspect-ratio: 4 / 3;      /* 🔥 REQUIRED */
+          background-size: contain; /* show full image */
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+        
+        /* Background images */
+        .event1 {
+          background-image: url("image2.jpeg");
+        }
+        
+        .event2 {
+          background-image: url("image3.jpeg");
+        }
+        
+        .event3 {
+          background-image: url("image1.jpeg");
         }
 
-        .event1 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('image2.jpeg'); }
-        .event2 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('image3.jpeg'); }
-        .event3 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('image1.jpeg'); }
         .event-content {
             padding: 1.5rem;
         }
