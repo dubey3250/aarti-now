@@ -248,12 +248,11 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
 
-        .event-image {
+       .event-image {
           width: 100%;
-          aspect-ratio: 16 / 9;   /* adjust if needed */
-          background-size: contain;
-          background-position: center;
-          background-repeat: no-repeat;
+          height: auto;           /* image controls height */
+          display: block;
+          object-fit: contain;    /* no crop */
         }
 
         .event1 { background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('image2.jpeg'); }
